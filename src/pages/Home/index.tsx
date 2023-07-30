@@ -21,6 +21,8 @@ export const Home = () => {
   //     fetchData();
   //   }, [fetchData]);
 
+  const navigate = useNavigate();
+
   const [characters] = useState<ICharacterInfo[]>(data);
 
   const [search, setSearch] = useState("");
@@ -29,8 +31,23 @@ export const Home = () => {
 
   const [favorite, setFavorite] = useState(false);
 
+  const [ordered, setOrdered] = useState(false);
+
+  const [originalCharacters, setOriginalCharacters] = useState<
+    ICharacterInfo[]
+  >([]);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+  };
+
+  const handleOrdered = () => {
+    setOrdered(!ordered);
+    if (!ordered) {
+      setOriginalCharacters([...characters]);
+    } else {
+      setFiltered([...originalCharacters]);
+    }
   };
 
   useEffect(() => {
@@ -40,6 +57,12 @@ export const Home = () => {
       )
     );
   }, [characters, search]);
+
+  useEffect(() => {
+    if (ordered) {
+      setFiltered([...filtered].sort((a, b) => a.name.localeCompare(b.name)));
+    }
+  }, [ordered]);
 
   return (
     <Container>
@@ -57,9 +80,27 @@ export const Home = () => {
           Encontrados {filtered.length} heróis
         </Paragraph>
         <p></p>
-        <Paragraph variant={"red"}>Ordenar por nome - A/Z</Paragraph>
         <Paragraph variant={"red"}>
-          <img src="src/assets/images/Full-heart.svg" alt="" />
+          <img
+            src="src/assets/images/Superhero.svg"
+            alt="Ícone super heroi com dor de fundo vermelha"
+          />
+          Ordenar por nome - A/Z
+          <img
+            src={
+              ordered
+                ? "src/assets/images/Toggle-on.svg"
+                : "src/assets/images/Toggle-off.svg"
+            }
+            alt={`Ícone toggle ${ordered ? "ativado" : "desativado"}`}
+            onClick={handleOrdered}
+          />
+        </Paragraph>
+        <Paragraph variant={"red"}>
+          <img
+            src="src/assets/images/Full-heart.svg"
+            alt="Ícone coração com cor de fundo vermelha"
+          />
           Somente favoritos
         </Paragraph>
         {filtered.map((character) => (
@@ -67,9 +108,16 @@ export const Home = () => {
             <img
               src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
               alt={`Imagem do personagem ${character.name}`}
+              title={`More details about character ${character.name}`}
+              onClick={() => navigate(`/character/${character.id}`)}
             />
             <div>
-              <h4>{character.name}</h4>
+              <h4
+                onClick={() => navigate(`/character/${character.id}`)}
+                title={`More details about character ${character.name}`}
+              >
+                {character.name}
+              </h4>
               <img
                 src={
                   favorite
@@ -77,7 +125,7 @@ export const Home = () => {
                     : "src/assets/images/Heart.svg"
                 }
                 id={character.id.toString()}
-                alt="Imagem desenho coração com borda vermelha e sem cor de fundo"
+                alt="Ícone coração com borda vermelha e sem cor de fundo"
                 onClick={() => setFavorite(!favorite)}
               />
             </div>
