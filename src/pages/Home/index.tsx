@@ -67,7 +67,7 @@ export const Home = () => {
   return (
     <Container>
       <Header>
-        <img src="src/assets/images/Logo.svg" alt="" />
+        <img src="/images/Logo.svg" alt="" />
         <h1>Explore o universo</h1>
         <Paragraph>
           Mergulhe no domínio deslumbrante de todos os personagens clássicos que
@@ -82,15 +82,15 @@ export const Home = () => {
         <p></p>
         <Paragraph variant={"red"}>
           <img
-            src="src/assets/images/Superhero.svg"
+            src="/images/Superhero.svg"
             alt="Ícone super heroi com dor de fundo vermelha"
           />
           Ordenar por nome - A/Z
           <img
             src={
               ordered
-                ? "src/assets/images/Toggle-on.svg"
-                : "src/assets/images/Toggle-off.svg"
+                ? "/images/Toggle-on.svg"
+                : "/images/Toggle-off.svg"
             }
             alt={`Ícone toggle ${ordered ? "ativado" : "desativado"}`}
             onClick={handleOrdered}
@@ -98,7 +98,7 @@ export const Home = () => {
         </Paragraph>
         <Paragraph variant={"red"}>
           <img
-            src="src/assets/images/Full-heart.svg"
+            src="/images/Full-heart.svg"
             alt="Ícone coração com cor de fundo vermelha"
           />
           Somente favoritos
@@ -121,8 +121,8 @@ export const Home = () => {
               <img
                 src={
                   favorite
-                    ? "src/assets/images/Full-heart.svg"
-                    : "src/assets/images/Heart.svg"
+                    ? "/images/Full-heart.svg"
+                    : "/images/Heart.svg"
                 }
                 id={character.id.toString()}
                 alt="Ícone coração com borda vermelha e sem cor de fundo"

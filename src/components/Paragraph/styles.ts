@@ -7,6 +7,7 @@ interface ParagraphProps {
 export const ParagraphContainer = styled.div<ParagraphProps>`
   display: flex;
   justify-content: space-around;
+  align-items: center;
   color: ${({ variant, theme }) =>
     variant === "soft-grey"
       ? theme.COLORS["soft-grey"]
@@ -15,9 +16,10 @@ export const ParagraphContainer = styled.div<ParagraphProps>`
       : variant === "grey"
       ? theme.COLORS.grey
       : theme.COLORS.red};
+  gap: 1rem;
 
   img {
-    width: 1rem;
-    height: 1rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
   }
 `;

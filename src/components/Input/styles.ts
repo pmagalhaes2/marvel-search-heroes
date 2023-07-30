@@ -22,7 +22,7 @@ export const Container = styled.div<InputProps>`
     font-size: 1rem;
     outline: none;
     font-family: inherit;
-    background: url("src/assets/images/Search.svg") no-repeat center left 20px;
+    background: url("/images/Search.svg") no-repeat center left 20px;
     background-color: ${({ theme, variant }) =>
       variant === "primary" ? theme.COLORS["soft-red"] : theme.COLORS.white};
 

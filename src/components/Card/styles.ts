@@ -9,6 +9,7 @@ export const CardContainer = styled.div`
     width: 15rem;
     height: 15rem;
     border-bottom: 4px solid ${({ theme }) => theme.COLORS.red};
+    cursor: pointer;
   }
 
   div {
@@ -21,12 +22,12 @@ export const CardContainer = styled.div`
     h4 {
       color: ${({ theme }) => theme.COLORS.grey};
       font-weight: ${({ theme }) => theme.FONTWEIGHT.bold};
+      width: 70%;
     }
 
     img {
-      width: 1rem;
-      height: 1rem;
-      cursor: pointer;
+      width: 1.2rem;
+      height: 1.2rem;
       border: none;
     }
   }
