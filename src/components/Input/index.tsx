@@ -1,5 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes } from "react";
-import { Container } from "./styles";
+import { InputContainer } from "./styles";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id?: string;
@@ -21,7 +21,7 @@ export const Input = ({
   onChange,
 }: InputProps) => {
   return (
-    <Container variant={variant}>
+    <InputContainer variant={variant}>
       <input
         id={id}
         name={name}
@@ -29,6 +29,6 @@ export const Input = ({
         type={type}
         value={value}
         onChange={onChange}></input>
-    </Container>
+    </InputContainer>
   );
 };

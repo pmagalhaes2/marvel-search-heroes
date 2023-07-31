@@ -4,7 +4,7 @@ interface InputProps {
   variant: "primary" | "secondary";
 }
 
-export const Container = styled.div<InputProps>`
+export const InputContainer = styled.div<InputProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
