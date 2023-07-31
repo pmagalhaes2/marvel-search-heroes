@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const CardContainer = styled.div`
+export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -10,20 +10,19 @@ export const CardContainer = styled.div`
     height: 15rem;
     border-bottom: 4px solid ${({ theme }) => theme.COLORS.red};
     cursor: pointer;
+    margin-bottom: 1rem;
   }
-
-  div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1rem;
-
-    h4 {
+  
+  h4 {
       color: ${({ theme }) => theme.COLORS.grey};
       font-weight: ${({ theme }) => theme.FONTWEIGHT.bold};
       width: 70%;
     }
+
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 
     img {
       width: 1.2rem;

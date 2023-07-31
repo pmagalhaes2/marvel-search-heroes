@@ -6,4 +6,5 @@ export const Container = styled.div`
   justify-content: center;
   padding: 2rem 5rem;
   width: 100%;
+  background-color: ${({theme}) => theme.COLORS["soft-green"]};
 `;

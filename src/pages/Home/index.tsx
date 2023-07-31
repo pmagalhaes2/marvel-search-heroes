@@ -67,7 +67,7 @@ export const Home = () => {
   return (
     <Container>
       <Header>
-        <img src="/images/Logo.svg" alt="" />
+        <img src="/images/Logo.svg" alt="Imagem do logo Marvel com texto lateral escrito Search Heros" />
         <h1>Explore o universo</h1>
         <Paragraph>
           Mergulhe no domínio deslumbrante de todos os personagens clássicos que

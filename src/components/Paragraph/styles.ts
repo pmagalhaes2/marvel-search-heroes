@@ -6,7 +6,6 @@ interface ParagraphProps {
 
 export const ParagraphContainer = styled.div<ParagraphProps>`
   display: flex;
-  justify-content: space-around;
   align-items: center;
   color: ${({ variant, theme }) =>
     variant === "soft-grey"

@@ -6,6 +6,10 @@ export const Header = styled.header`
   align-items: center;
   gap: 1rem;
 
+  img {
+    margin-bottom: 2rem;
+  }
+
   h1 {
     text-transform: uppercase;
     color: ${({ theme }) => theme.COLORS.grey};

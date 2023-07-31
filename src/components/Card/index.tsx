@@ -1,9 +1,9 @@
-import { CardContainer } from "./styles";
+import { CardContent } from "./styles";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const Card = ({ children }: Props) => {
-  return <CardContainer>{children}</CardContainer>;
+  return <CardContent>{children}</CardContent>;
 };
