@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 interface ParagraphProps {
   variant: "soft-grey" | "medium-grey" | "grey" | "red";
+  isClicked: boolean;
 }
 
 export const ParagraphContainer = styled.div<ParagraphProps>`
@@ -16,6 +17,7 @@ export const ParagraphContainer = styled.div<ParagraphProps>`
       ? theme.COLORS.grey
       : theme.COLORS.red};
   gap: 1rem;
+  cursor: ${({ isClicked }) => (isClicked ? "pointer" : "")};
 
   img {
     min-width: 1.5rem;

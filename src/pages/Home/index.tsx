@@ -1,5 +1,4 @@
 import { CardsContainer, Header } from "./styles";
-// import data from "./characters";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { ICharacterInfo, getAllCharacters } from "../../services/MarveAPI";
 import { Input } from "../../components/Input";
@@ -15,7 +14,9 @@ export const Home = () => {
 
   const [filtered, setFiltered] = useState<ICharacterInfo[]>([]);
 
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState<ICharacterInfo[]>([]);
+
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
   const [ordered, setOrdered] = useState(false);
 
@@ -62,6 +63,27 @@ export const Home = () => {
     }
   }, [ordered]);
 
+  const handleFavorite = (characterId: string) => {
+    const isFavorited = favorite.some(
+      (character) => character.id === Number(characterId)
+    );
+
+    if (isFavorited) {
+      const updatedFavorite = favorite.filter(
+        (character) => character.id !== Number(characterId)
+      );
+      setFavorite(updatedFavorite);
+    } else if (favorite.length < 5) {
+      const characterToAdd = filtered.find(
+        (character) => character.id === Number(characterId)
+      );
+      if (characterToAdd) {
+        setFavorite([...favorite, characterToAdd]);
+      }
+    }
+    setShowOnlyFavorites(false);
+  };
+
   return (
     <Container>
       <Header>
@@ -78,7 +100,15 @@ export const Home = () => {
       </Header>
       <CardsContainer>
         <Paragraph variant={"soft-grey"}>
-          Encontrados {filtered.length} heróis
+          {(showOnlyFavorites && favorite.length > 1) ||
+          (!showOnlyFavorites && filtered.length > 1)
+            ? "Encontrados"
+            : "Encontrado"}{" "}
+          {showOnlyFavorites ? favorite.length : filtered.length}{" "}
+          {(showOnlyFavorites && favorite.length > 1) ||
+          (!showOnlyFavorites && filtered.length > 1)
+            ? "herois"
+            : "heroi"}
         </Paragraph>
         <p></p>
         <Paragraph variant={"red"}>
@@ -93,37 +123,69 @@ export const Home = () => {
             onClick={handleOrdered}
           />
         </Paragraph>
-        <Paragraph variant={"red"}>
+        <Paragraph
+          variant={"red"}
+          onClick={() => setShowOnlyFavorites(!showOnlyFavorites)}
+          isClicked={true}
+        >
           <img
             src="/images/Full-heart.svg"
             alt="Ícone coração com cor de fundo vermelha"
+            title={"Show all favorites"}
           />
           Somente favoritos
         </Paragraph>
-        {filtered.map((character) => (
-          <Card key={character.id}>
-            <img
-              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-              alt={`Imagem do personagem ${character.name}`}
-              title={`More details about character ${character.name}`}
-              onClick={() => navigate(`/character/${character.id}`)}
-            />
-            <div>
-              <h4
-                onClick={() => navigate(`/character/${character.id}`)}
-                title={`More details about character ${character.name}`}
-              >
-                {character.name}
-              </h4>
-              <img
-                src={favorite ? "/images/Full-heart.svg" : "/images/Heart.svg"}
-                id={character.id.toString()}
-                alt="Ícone coração com borda vermelha e sem cor de fundo"
-                onClick={() => setFavorite(!favorite)}
-              />
-            </div>
-          </Card>
-        ))}
+        {showOnlyFavorites
+          ? favorite.map((character) => (
+              <Card key={character.id}>
+                <img
+                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  alt={`Imagem do personagem ${character.name}`}
+                  title={`More details about character ${character.name}`}
+                  onClick={() => navigate(`/character/${character.id}`)}
+                />
+                <div>
+                  <h4
+                    onClick={() => navigate(`/character/${character.id}`)}
+                    title={`More details about character ${character.name}`}
+                  >
+                    {character.name}
+                  </h4>
+                  <img
+                    src="/images/Full-heart.svg"
+                    alt="Ícone coração com borda vermelha e sem cor de fundo"
+                    onClick={() => handleFavorite(String(character.id))}
+                  />
+                </div>
+              </Card>
+            ))
+          : filtered.map((character) => (
+              <Card key={character.id}>
+                <img
+                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  alt={`Imagem do personagem ${character.name}`}
+                  title={`More details about character ${character.name}`}
+                  onClick={() => navigate(`/character/${character.id}`)}
+                />
+                <div>
+                  <h4
+                    onClick={() => navigate(`/character/${character.id}`)}
+                    title={`More details about character ${character.name}`}
+                  >
+                    {character.name}
+                  </h4>
+                  <img
+                    src={
+                      favorite.some((fav) => fav.id == character.id)
+                        ? "/images/Full-heart.svg"
+                        : "images/Heart.svg"
+                    }
+                    alt="Ícone coração com borda vermelha e sem cor de fundo"
+                    onClick={() => handleFavorite(String(character.id))}
+                  />
+                </div>
+              </Card>
+            ))}
       </CardsContainer>
     </Container>
   );
