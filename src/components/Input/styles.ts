@@ -30,5 +30,10 @@ export const InputContainer = styled.div<InputProps>`
       color: ${({ theme, variant }) =>
         variant === "primary" ? theme.COLORS.red : theme.COLORS["medium-grey"]};
     }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      font-size: 0.8rem;
+    }
   }
 `;

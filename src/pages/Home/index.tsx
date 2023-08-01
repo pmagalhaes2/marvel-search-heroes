@@ -1,7 +1,7 @@
 import { CardsContainer, Header } from "./styles";
-import data from "./characters";
-import { ChangeEvent, useEffect, useState } from "react";
-import { ICharacterInfo } from "../../services/MarveAPI";
+// import data from "./characters";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ICharacterInfo, getAllCharacters } from "../../services/MarveAPI";
 import { Input } from "../../components/Input";
 import { Container } from "../../components/Container/styles";
 import { Card } from "../../components/Card";
@@ -9,21 +9,7 @@ import { Paragraph } from "../../components/Paragraph";
 import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-  // const [characters, setCharacters] = useState<ICharacterInfo[]>(characters);
-
-  // const fetchData = useCallback(() => {
-  //   getAllCharacters().then((response: ICharacterInfo[]) =>
-  //     setCharacters(response)
-  //   );
-  // }, []);
-
-  //   useEffect(() => {
-  //     fetchData();
-  //   }, [fetchData]);
-
-  const navigate = useNavigate();
-
-  const [characters] = useState<ICharacterInfo[]>(data);
+  const [characters, setCharacters] = useState<ICharacterInfo[]>([]);
 
   const [search, setSearch] = useState("");
 
@@ -36,6 +22,18 @@ export const Home = () => {
   const [originalCharacters, setOriginalCharacters] = useState<
     ICharacterInfo[]
   >([]);
+
+  const navigate = useNavigate();
+
+  const fetchData = useCallback(() => {
+    getAllCharacters().then((response: ICharacterInfo[]) =>
+      setCharacters(response)
+    );
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -67,7 +65,10 @@ export const Home = () => {
   return (
     <Container>
       <Header>
-        <img src="/images/Logo.svg" alt="Imagem do logo Marvel com texto lateral escrito Search Heros" />
+        <img
+          src="/images/Logo.svg"
+          alt="Imagem do logo Marvel com texto lateral escrito Search Heros"
+        />
         <h1>Explore o universo</h1>
         <Paragraph>
           Mergulhe no domínio deslumbrante de todos os personagens clássicos que
@@ -87,11 +88,7 @@ export const Home = () => {
           />
           Ordenar por nome - A/Z
           <img
-            src={
-              ordered
-                ? "/images/Toggle-on.svg"
-                : "/images/Toggle-off.svg"
-            }
+            src={ordered ? "/images/Toggle-on.svg" : "/images/Toggle-off.svg"}
             alt={`Ícone toggle ${ordered ? "ativado" : "desativado"}`}
             onClick={handleOrdered}
           />
@@ -119,11 +116,7 @@ export const Home = () => {
                 {character.name}
               </h4>
               <img
-                src={
-                  favorite
-                    ? "/images/Full-heart.svg"
-                    : "/images/Heart.svg"
-                }
+                src={favorite ? "/images/Full-heart.svg" : "/images/Heart.svg"}
                 id={character.id.toString()}
                 alt="Ícone coração com borda vermelha e sem cor de fundo"
                 onClick={() => setFavorite(!favorite)}
