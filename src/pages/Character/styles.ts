@@ -78,9 +78,13 @@ export const ComicsContainer = styled.div`
   }
 
   > div {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    column-gap: 1rem;
+    row-gap: 3rem;
+  }
+
+  p {
+    color: ${({theme}) => theme.COLORS.grey}
   }
 `;
