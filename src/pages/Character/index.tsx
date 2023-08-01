@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../components/Card";
 import { Container } from "../../components/Container/styles";
 import { Paragraph } from "../../components/Paragraph";
@@ -25,6 +25,8 @@ export const Character = () => {
   const [comicsInfos, setComicsInfos] = useState<IComicsInfos[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,6 +129,7 @@ export const Character = () => {
                           </div>
                         </InfosContainer>
                       </InfosContainer>
+                      <button onClick={() => navigate('/')}>Voltar</button>
                     </DetailsContainer>
                     <img
                       src={`${thumbnail.path}.${thumbnail.extension}`}

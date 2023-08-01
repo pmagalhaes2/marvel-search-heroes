@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
-  body, html {
+  body, html, button {
     height: 100%;
     font-family: "Work Sans", sans-serif;
   }
